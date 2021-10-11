@@ -37,7 +37,7 @@ class Server {
         
         this.app.get(`/api/v1/*`, (req, res) => {
             let url = req.url.slice(8).split('?')[0];
-            this.routes.get(url).run({
+            this.routes?.get(url)?.run({
                 app: this.app,
                 mysql: this.mysql,
                 format: (data, status = 200) => this.app.format(req, res, data, status),
