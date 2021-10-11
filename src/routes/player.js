@@ -9,6 +9,12 @@ class Player extends Base {
     }
 
     async run({ format, query, mysql }) {
+        if(!query.name) return format({
+            error: 'Missing query: name',
+            status: 400,
+            statusText: 'Bad Request'
+        }, 400)
+
         let uuid = playerNameToUUID(query.name);
 
         let player = await mysql.getPlayer(query.name, uuid);
