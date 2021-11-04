@@ -31,14 +31,14 @@ class MySQL {
         let bentoBoxData;
         if(!bentoBoxCache) {
             this.db1.query(`USE s9_bentobox`);
-            bentoBoxData = await this.db1.promisifyQuery(`SELECT * FROM Players WHERE uniqueId='"${uuid}"'`);
+            bentoBoxData = await this.db1.promisifyQuery(`SELECT * FROM Players WHERE uniqueId='"${this.db1.escape(uuid)}"'`);
             if(bentoBoxData && bentoBoxData?.[0]) bentoBoxData = JSON.parse(bentoBoxData[0].json);
         } else bentoBoxData = bentoBoxCache;
 
         let votes = 0;
         if(!votesCache) {
             this.db1.query(`USE s2_plan`);
-            let votesData = await this.db1.promisifyQuery(`SELECT * FROM plan_votes WHERE user_name='${username}'`);
+            let votesData = await this.db1.promisifyQuery(`SELECT * FROM plan_votes WHERE user_name='${this.db1.escape(username)}'`);
     
             for (let vote of votesData) votes += vote.votes;
         } else votes = votesCache;
