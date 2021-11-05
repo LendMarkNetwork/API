@@ -13,7 +13,13 @@ class Player extends Base {
             error: 'Missing query: name',
             status: 400,
             statusText: 'Bad Request'
-        }, 400)
+        }, 400);
+
+        if(!/^[a-zA-Z0-9_]{1,16}$/g.test(query.name)) return format({
+            error: 'Invalid query: name',
+            status: 400,
+            statusText: 'Bad request'
+        }, 400);
 
         let uuid = playerNameToUUID(query.name);
 
